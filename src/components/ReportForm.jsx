@@ -4,7 +4,7 @@ import { createReport } from '../api/report';
 import { getGroups } from '../api/group';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ReportForm = () => {
+export function ReportForm () {
   const [reportName, setReportName] = useState('');
   const [reportDescription, setReportDescription] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('');
@@ -28,10 +28,11 @@ const ReportForm = () => {
     e.preventDefault();
 
     try {
+      console.log(selectedGroup)
       const reportData = {
         nombre: reportName,
         descripcion: reportDescription,
-        grupo: selectedGroup,
+        grupo: selectedGroup, // Aquí pasamos el id del grupo en lugar del objeto completo
         link: reportLink
         // Puedes agregar más campos según necesites
       };
@@ -46,7 +47,7 @@ const ReportForm = () => {
       setReportName('');
       setReportDescription('');
       setSelectedGroup('');
-      setReportLink('')
+      setReportLink('');
     } catch (error) {
       console.error('Error al crear el reporte:', error);
       // Manejar el error según sea necesario
@@ -110,5 +111,3 @@ const ReportForm = () => {
     </div>
   );
 };
-
-export default ReportForm;

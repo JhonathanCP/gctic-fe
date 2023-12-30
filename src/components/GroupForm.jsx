@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { createGroup } from '../api/group';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa el archivo CSS de Bootstrap
 
-const GroupForm = () => {
+export function GroupForm () {
   const [groupName, setGroupName] = useState('');
   const [groupDescription, setGroupDescription] = useState('');
 
@@ -63,5 +63,3 @@ const GroupForm = () => {
     </div>
   );
 };
-
-export default GroupForm;

@@ -19,9 +19,9 @@ authApi.interceptors.request.use((config) => {
   return config;
 });
 
-export const addReport = () => authApi.post("/reportes/asignar/");
-export const addGroup = () => authApi.post("/grupos/asignar/");
-export const removeReport = () => authApi.delete(`/reportes/quitar/`);
-export const removeGroup = () => authApi.delete(`/grupos/quitar/`);
+export const addReport = (data) => authApi.post("/reportes/asignar/", data);
+export const addGroup = (data) => authApi.post("/grupos/asignar/", data);
+export const removeReport = (data) => authApi.delete("/reportes/quitar/", { data });
+export const removeGroup = (data) => authApi.delete("/grupos/quitar/", { data });
 export const addAllPermissions = (userId) => authApi.post(`/todos/${userId}/`);
-export const getPermissions = (userId) => authApi.get(`/usuario/${userId}/`); // Corregido: agregué el parámetro userId
+export const getPermissions = (userId) => authApi.get(`/usuario/${userId}/`);

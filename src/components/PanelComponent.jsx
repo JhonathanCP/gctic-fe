@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { getGroups } from '../api/group';
 import logo from '../assets/img/logo-essalud-blanco.svg';
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-hot-toast";
+import '../assets/css/estilos.css';
+import '../assets/css/estilos-responsive.css';
 
 export function PanelComponent() {
   const [grupos, setGrupos] = useState([]);
@@ -70,9 +72,26 @@ export function PanelComponent() {
           <div className="login-user">
             <span>{usuario}</span>
             <div className="btn_opciones">
-              <ul>
-                <li onClick={handleLogout}>Cerrar Sesión</li>
-              </ul>
+            <ul>
+                        {/* Agrega enlaces fuera del menú de cerrar sesión */}
+                        <li>
+                            <Link to="/panel">Panel</Link>
+                        </li>
+                        <li>
+                            <Link to="/admin/dashboard">Grupos y reportes</Link>
+                        </li>
+                        <li>
+                            <Link to="/admin/grupos">Agregar grupo</Link>
+                        </li>
+                        <li>
+                            <Link to="/admin/reportes">Agregar reporte</Link>
+                        </li>
+                        <li>
+                            <Link to="/admin/usuarios">Usuarios</Link>
+                        </li>
+                        {/* Menú de cerrar sesión */}
+                        <li onClick={handleLogout}>Cerrar Sesión</li>
+                    </ul>
             </div>
           </div>
         </header>

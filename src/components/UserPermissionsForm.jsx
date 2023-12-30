@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getPermissions, addReport, addGroup, removeReport, removeGroup, addAllPermissions } from '../api/permissions';
 import { getReports } from '../api/report';
 import { getGroups } from '../api/group';
+import { jwtDecode } from "jwt-decode";
 
 const UserPermissionsForm = () => {
   const { id } = useParams();
@@ -15,6 +16,8 @@ const UserPermissionsForm = () => {
   const [groups, setGroups] = useState([]);
   const [selectedReport, setSelectedReport] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('');
+  const [usuario, setUsuario] = useState('');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +35,11 @@ const UserPermissionsForm = () => {
     };
 
     fetchData();
+    const token = localStorage.getItem('access');
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUsuario(decodedToken.username);
+    }
   }, [id]);
 
   const handleAddReport = async () => {
@@ -102,7 +110,7 @@ const UserPermissionsForm = () => {
 
   return (
     <div className="container mt-4">
-      <h2>Permisos del Usuario</h2>
+      <h2>Permisos de: {usuario}</h2>
       <div className="mb-3">
         <label className="form-label">Agregar Permiso de Reporte:</label>
         <div className="d-flex">
@@ -141,8 +149,8 @@ const UserPermissionsForm = () => {
       <ul>
         {permissions.permisos_reportes.map((permiso) => (
           <li key={permiso.id}>
-            {`Reporte ID: ${permiso.reporte}`}
-            <button className="btn btn-danger ms-2" onClick={() => handleRemoveReport(permiso.id)}>Eliminar Permiso</button>
+            {`Reporte ID: ${permiso.reporte.id} - Nombre: ${permiso.reporte.nombre}`}
+            <button className="btn btn-danger ms-2" onClick={() => handleRemoveReport(permiso.reporte.id)}>Eliminar Permiso</button>
           </li>
         ))}
       </ul>
@@ -151,8 +159,8 @@ const UserPermissionsForm = () => {
       <ul>
         {permissions.permisos_grupos.map((permiso) => (
           <li key={permiso.id}>
-            {`Grupo ID: ${permiso.grupo}`}
-            <button className="btn btn-danger ms-2" onClick={() => handleRemoveGroup(permiso.id)}>Eliminar Permiso</button>
+            {`Grupo ID: ${permiso.grupo.id} - Nombre: ${permiso.grupo.nombre}`}
+            <button className="btn btn-danger ms-2" onClick={() => handleRemoveGroup(permiso.grupo.id)}>Eliminar Permiso</button>
           </li>
         ))}
       </ul>

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getReport, updateReport, deleteReport } from '../api/report';
 import { getGroups } from '../api/group';
 
-const EditReportComponent = () => {
+export function EditReportComponent () {
   const navigate = useNavigate();
   const { id } = useParams();
   const [report, setReport] = useState({
@@ -114,10 +114,11 @@ const EditReportComponent = () => {
           <select
             className="form-control"
             id="grupo"
-            name="grupo"
-            value={report.grupo.id}
+            name="grupo-id"
+            value={report['grupo-id']}
             onChange={handleInputChange}
           >
+            <option value="">Seleccionar grupo</option>
             {groups.map((group) => (
               <option key={group.id} value={group.id}>
                 {group.nombre}
@@ -136,5 +137,3 @@ const EditReportComponent = () => {
     </div>
   );
 };
-
-export default EditReportComponent;

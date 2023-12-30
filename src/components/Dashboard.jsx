@@ -5,7 +5,7 @@ import { getGroups } from '../api/group';
 import { getReports } from '../api/report';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Dashboard = () => {
+export function Dashboard () {
   const [groups, setGroups] = useState([]);
   const [reports, setReports] = useState([]);
 
@@ -70,7 +70,7 @@ const Dashboard = () => {
               <td>{report.id}</td>
               <td>{report.nombre}</td>
               <td>{report.descripcion}</td>
-              <td>{report.grupo.nombre}</td>
+              <td>{report.grupo_nombre}</td>
               <td>
                 <Link to={`/admin/editar/reporte/${report.id}`} className="btn btn-primary">
                   Editar
@@ -83,5 +83,3 @@ const Dashboard = () => {
     </div>
   );
 };
-
-export default Dashboard;
